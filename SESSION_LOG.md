@@ -121,3 +121,61 @@ After we finish, update SESSION_LOG.md with a new entry and update BUGLOG.md if 
 - Session 2: CRM module — contacts CRUD API + paginated table UI + Kanban deals board + notes + activity log
 
 ---
+
+## Session 2 — 2026-06-10 — CRM Module
+
+**Duration:** 1 hr
+**Engineer:** Renato C. Javier Jr.
+**Session Goal:** Full CRM module — contacts, deals Kanban, notes, activity log, dashboard stats
+
+### ✅ Completed
+- [x] Zod validation middleware (`validate.ts`)
+- [x] Typed mysql2 query helpers (`db/query.ts`)
+- [x] Contacts service — getAll (paginated + search), getById, create, update, softDelete, getStats
+- [x] Deals service — getAll (filtered), getById, create, update, remove, getActivities, getStats + auto activity log on stage change
+- [x] Contact notes service — getByContactId, create, remove
+- [x] Controllers for contacts, deals, contact notes
+- [x] Routes: GET/POST/PUT/DELETE /contacts, GET/POST /contacts/:id/notes, GET/POST/PUT/DELETE /deals, GET /deals/:id/activities, GET /crm/stats
+- [x] Dashboard layout with MUI Drawer sidebar (CRM, Inventory, Orders nav)
+- [x] Contacts paginated table with search + create/edit modal + delete
+- [x] Contact detail page with notes section
+- [x] Deals Kanban board (Lead / Active / Closed) with @dnd-kit drag-and-drop
+- [x] Deal cards with edit/delete, deal form modal with contact selector
+- [x] CRM dashboard page with stats cards
+- [x] React Query hooks for all CRUD + cache invalidation
+
+### 📁 Files Created
+- `apps/api/src/middleware/validate.ts`
+- `apps/api/src/db/query.ts`
+- `apps/api/src/services/contacts.ts`, `deals.ts`, `contactNotes.ts`
+- `apps/api/src/controllers/contacts.ts`, `deals.ts`, `contactNotes.ts`
+- `apps/api/src/routes/contacts.ts`, `deals.ts`, `crm.ts`
+- `apps/web/lib/api/contacts.ts`, `deals.ts`
+- `apps/web/hooks/useContacts.ts`, `useDeals.ts`, `useContactNotes.ts`
+- `apps/web/components/layout/Sidebar.tsx`, `DashboardShell.tsx`
+- `apps/web/components/crm/ContactsTable.tsx`, `ContactForm.tsx`, `ContactNotes.tsx`
+- `apps/web/components/crm/DealKanban.tsx`, `DealColumn.tsx`, `DealCard.tsx`, `DealForm.tsx`
+- `apps/web/app/(dashboard)/crm/page.tsx`
+- `apps/web/app/(dashboard)/crm/contacts/page.tsx`, `[id]/page.tsx`
+- `apps/web/app/(dashboard)/crm/deals/page.tsx`
+
+### ✏️ Files Modified
+- `apps/api/src/routes/index.ts` — wired contacts, deals, crm routers
+- `apps/web/app/(dashboard)/layout.tsx` — added DashboardShell
+- `apps/web/package.json` — added @dnd-kit/*, react-hook-form, @hookform/resolvers
+- `apps/api/tsconfig.json` — removed @sme/shared path alias (uses built dist)
+- All route files — added explicit `IRouter` / `Application` type annotations
+
+### 🏗️ Architecture Decisions
+- See DECISIONS.md — ADR-009
+
+### 🐛 Bugs Encountered
+> See BUGLOG.md — Bug IDs: none
+
+### 🔗 Dependencies Added
+**apps/web:** @dnd-kit/core ^6, @dnd-kit/sortable ^8, @dnd-kit/utilities ^3, react-hook-form ^7, @hookform/resolvers ^3
+
+### ⏭️ Next Session
+- Session 3: Inventory module — products CRUD + stock movements + low-stock alerts + charts
+
+---

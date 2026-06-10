@@ -59,20 +59,20 @@
 
 | Feature | Status | Session | Notes |
 |---|---|---|---|
-| Contacts list (paginated table) | 📋 PLANNED | S2 | |
-| Contact search + filter | 📋 PLANNED | S2 | |
-| Create contact (modal form) | 📋 PLANNED | S2 | |
-| Edit contact | 📋 PLANNED | S2 | |
-| Delete contact (soft delete) | 📋 PLANNED | S2 | |
-| Contact detail view | 📋 PLANNED | S2 | |
-| Deals Kanban board | 📋 PLANNED | S2 | |
-| Drag-and-drop deal cards (@dnd-kit) | 📋 PLANNED | S2 | |
-| Create deal | 📋 PLANNED | S2 | |
-| Edit deal | 📋 PLANNED | S2 | |
-| Delete deal | 📋 PLANNED | S2 | |
-| Notes per contact | 📋 PLANNED | S2 | |
-| Activity log per deal | 📋 PLANNED | S2 | |
-| CRM dashboard summary cards | 📋 PLANNED | S2 | |
+| Contacts list (paginated table) | ✅ DONE | S2 | Server-side pagination + search |
+| Contact search + filter | ✅ DONE | S2 | LIKE search across name/email/company |
+| Create contact (modal form) | ✅ DONE | S2 | RHF + Zod validation |
+| Edit contact | ✅ DONE | S2 | Same modal, pre-filled |
+| Delete contact (soft delete) | ✅ DONE | S2 | Sets deleted_at, filters from queries |
+| Contact detail view | ✅ DONE | S2 | /crm/contacts/[id] page |
+| Deals Kanban board | ✅ DONE | S2 | Three columns: Lead / Active / Closed |
+| Drag-and-drop deal cards (@dnd-kit) | ✅ DONE | S2 | Stage updated on drop |
+| Create deal | ✅ DONE | S2 | Modal with contact selector |
+| Edit deal | ✅ DONE | S2 | Same modal, pre-filled |
+| Delete deal | ✅ DONE | S2 | Hard delete |
+| Notes per contact | ✅ DONE | S2 | On contact detail page |
+| Activity log per deal | ✅ DONE | S2 | Auto-logged on create + stage change |
+| CRM dashboard summary cards | ✅ DONE | S2 | /crm — contacts + deals by stage |
 
 ---
 
@@ -172,4 +172,4 @@
 
 ---
 
-_Last updated: Session 1 — 2026-06-10_
+_Last updated: Session 2 — 2026-06-10_

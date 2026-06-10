@@ -1,7 +1,7 @@
-import { Router } from 'express'
+import { Router, type IRouter } from 'express'
 import { db } from '~api/db/connection'
 
-export const healthRouter = Router()
+export const healthRouter: IRouter = Router()
 
 healthRouter.get('/', async (_req, res) => {
   try {

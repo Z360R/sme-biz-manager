@@ -127,3 +127,15 @@ Each record answers three questions:
 - Alternative (tsup bundler) was rejected to keep the stack lean for MVP
 
 **Tradeoff:** Extra dev dependency and build step. Accepted — the rewrite is deterministic and adds ~1s to build time.
+
+---
+
+### ADR-009 — Explicit `IRouter` / `Application` type annotations on Express exports
+
+**Decision:** All exported Express `Router()` instances are annotated as `IRouter` and the app as `Application`.
+
+**Rationale:**
+- pnpm's symlinked `@types/express` creates internal paths like `.pnpm/@types+express-serve-static-core@...` that TypeScript's `declaration: true` cannot resolve portably.
+- Explicit annotations stop TypeScript from trying to infer and serialize these opaque types.
+
+**Tradeoff:** Minor verbosity. No functional impact.

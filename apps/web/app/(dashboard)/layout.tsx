@@ -1,4 +1,5 @@
-// Route guard + shell layout added in Session 5 (Auth)
+import { DashboardShell } from '@/components/layout/DashboardShell'
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return <DashboardShell>{children}</DashboardShell>
 }

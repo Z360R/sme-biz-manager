@@ -1,10 +1,10 @@
-import express from 'express'
+import express, { type Application } from 'express'
 import cors from 'cors'
 import { requestLogger } from '~api/middleware/requestLogger'
 import { errorHandler } from '~api/middleware/errorHandler'
 import { router } from '~api/routes/index'
 
-export const app = express()
+export const app: Application = express()
 
 app.use(
   cors({

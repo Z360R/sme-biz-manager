@@ -10,8 +10,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "~api/*": ["./src/*"],
-      "@sme/shared": ["../../packages/shared/src/index.ts"]
+      "~api/*": ["./src/*"]
     }
   },
   "include": ["src"],
