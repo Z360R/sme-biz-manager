@@ -102,7 +102,28 @@ Each record answers three questions:
 
 ## In-Build Decisions
 
-<!-- Claude Code adds new ADRs here as decisions are made during sessions -->
-<!-- Format: ADR-[incrementing number] — [Short title] -->
+### ADR-007 — tsconfig `paths` to resolve `@sme/shared` from TypeScript source
 
-_No in-build decisions recorded yet — build not started._
+**Decision:** Both `apps/api` and `apps/web` tsconfigs include a path alias pointing `@sme/shared` to `../../packages/shared/src/index.ts` (TypeScript source). `apps/web` also sets `transpilePackages: ['@sme/shared']` in next.config.ts.
+
+**Rationale:**
+- tsx (API dev server) resolves TypeScript source via tsconfig paths without a pre-build step
+- Next.js with `transpilePackages` compiles the shared source directly through webpack
+- Type checker (TypeScript LS in VS Code) uses paths for accurate intellisense
+- No pre-build step required to start development — `pnpm dev` just works
+
+**Tradeoff:** CI must build shared before running API production build (`tsc && tsc-alias`). Documented in CI workflow and root `build` script.
+
+---
+
+### ADR-008 — `tsc-alias` for `~api/*` path resolution in API production build
+
+**Decision:** Added `tsc-alias` as a post-tsc step in `apps/api` build (`"build": "tsc && tsc-alias"`).
+
+**Rationale:**
+- TypeScript compiles `~api/` path aliases but does not rewrite them in the emitted JS
+- At runtime, Node.js cannot resolve `~api/utils/logger` — it expects relative or node_modules paths
+- `tsc-alias` rewrites the compiled output to use correct relative paths
+- Alternative (tsup bundler) was rejected to keep the stack lean for MVP
+
+**Tradeoff:** Extra dev dependency and build step. Accepted — the rewrite is deterministic and adds ~1s to build time.

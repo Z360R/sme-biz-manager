@@ -21,16 +21,16 @@
 
 | Feature | Status | Session | Notes |
 |---|---|---|---|
-| Monorepo (pnpm workspaces) | 📋 PLANNED | S1 | |
-| Next.js 14 App Router scaffold | 📋 PLANNED | S1 | |
-| Express + TypeScript scaffold | 📋 PLANNED | S1 | |
-| packages/shared Zod schemas | 📋 PLANNED | S1 | |
-| MySQL schema + migrations | 📋 PLANNED | S1 | |
-| Railway deployment (backend) | 📋 PLANNED | S1 | |
-| Vercel deployment (frontend) | 📋 PLANNED | S1 | |
-| GitHub Actions CI pipeline | 📋 PLANNED | S1 | |
-| Environment variable setup | 📋 PLANNED | S1 | |
-| Health check endpoint (/health) | 📋 PLANNED | S1 | |
+| Monorepo (pnpm workspaces) | ✅ DONE | S1 | root package.json + pnpm-workspace.yaml |
+| Next.js 14 App Router scaffold | ✅ DONE | S1 | MUI v6 + React Query v5 + Zustand wired |
+| Express + TypeScript scaffold | ✅ DONE | S1 | Winston + Morgan + CORS + error handler |
+| packages/shared Zod schemas | ✅ DONE | S1 | All 4 modules — types + schemas defined |
+| MySQL schema + migrations | ✅ DONE | S1 | 11 tables, idempotent SQL, migrate script |
+| Railway deployment (backend) | 📋 PLANNED | S1 | Needs Railway CLI + credentials |
+| Vercel deployment (frontend) | 📋 PLANNED | S1 | Needs Vercel CLI |
+| GitHub Actions CI pipeline | ✅ DONE | S1 | typecheck + test jobs |
+| Environment variable setup | ✅ DONE | S1 | .env.example files for all packages |
+| Health check endpoint (/health) | ✅ DONE | S1 | GET /api/v1/health — pings DB |
 
 ---
 
@@ -122,12 +122,12 @@
 | 429 UI fallback (toast + button disable) | 📋 PLANNED | S6 | |
 | React Query stale-while-revalidate | 📋 PLANNED | S2 | Configured at setup |
 | Redis response cache (dashboard agg) | 📋 PLANNED | S6 | |
-| Winston structured logging | 📋 PLANNED | S1 | |
-| Morgan request logging | 📋 PLANNED | S1 | |
+| Winston structured logging | ✅ DONE | S1 | Pretty in dev, JSON in prod |
+| Morgan request logging | ✅ DONE | S1 | Streams into Winston logger |
 | Sentry — FE error boundaries | 📋 PLANNED | S6 | |
 | Sentry — BE exception capture | 📋 PLANNED | S6 | |
 | Security headers (Next.js middleware) | 📋 PLANNED | S6 | |
-| CORS configuration | 📋 PLANNED | S1 | |
+| CORS configuration | ✅ DONE | S1 | origin = CLIENT_URL, credentials: true |
 
 ---
 
@@ -172,4 +172,4 @@
 
 ---
 
-_Last updated: Session 0 (pre-build) — June 2026_
+_Last updated: Session 1 — 2026-06-10_

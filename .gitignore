@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+.next/
+out/
+build/
+
+# Environment files — never commit these
+.env
+.env.local
+.env.*.local
+apps/api/.env
+apps/web/.env.local
+packages/db/.env
+
+# TypeScript
+*.tsbuildinfo
+
+# Editor
+.DS_Store
+.vscode/settings.json
+*.swp
+*.swo
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+pnpm-debug.log*
+
+# Test coverage
+coverage/
+
+# Next.js
+.vercel

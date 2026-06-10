@@ -174,7 +174,7 @@ NEXT_PUBLIC_SENTRY_DSN=
 - Vercel dashboard: https://vercel.com
 - Upstash console: https://upstash.com
 - Sentry project: https://sentry.io
-- GitHub repo: (update when created)
+- GitHub repo: https://github.com/Z360R/sme-biz-manager
 - Live demo URL: (update when deployed)
 
 ---

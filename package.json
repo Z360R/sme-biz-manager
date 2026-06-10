@@ -1,0 +1,22 @@
+{
+  "name": "sme-biz-manager",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "pnpm build:shared && pnpm --parallel --filter \"./apps/*\" dev",
+    "build": "pnpm --filter \"@sme/shared\" build && pnpm --filter \"./apps/*\" build",
+    "build:shared": "pnpm --filter \"@sme/shared\" build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "migrate": "pnpm --filter \"@sme/db\" migrate",
+    "seed": "pnpm --filter \"@sme/db\" seed",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
