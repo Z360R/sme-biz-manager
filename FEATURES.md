@@ -31,6 +31,7 @@
 | GitHub Actions CI pipeline | ✅ DONE | S1 | typecheck + test jobs |
 | Environment variable setup | ✅ DONE | S1 | .env.example files for all packages |
 | Health check endpoint (/health) | ✅ DONE | S1 | GET /api/v1/health — pings DB |
+| CI + tsconfig corrections (9 bugs) | ✅ DONE | S3 | See BUGLOG BUG-3-001 → BUG-3-009 |
 
 ---
 
@@ -38,20 +39,20 @@
 
 | Feature | Status | Session | Notes |
 |---|---|---|---|
-| Login endpoint (POST /auth/login) | 📋 PLANNED | S5 | |
-| Refresh endpoint (POST /auth/refresh) | 📋 PLANNED | S5 | |
-| Logout endpoint (POST /auth/logout) | 📋 PLANNED | S5 | |
-| JWT Access Token (memory storage) | 📋 PLANNED | S5 | |
-| JWT Refresh Token (httpOnly cookie) | 📋 PLANNED | S5 | |
-| Refresh token rotation | 📋 PLANNED | S5 | |
-| Axios interceptor — silent AT refresh | 📋 PLANNED | S5 | |
-| Concurrent request queue during refresh | 📋 PLANNED | S5 | |
-| RBAC — Admin role | 📋 PLANNED | S5 | |
-| RBAC — Staff role | 📋 PLANNED | S5 | |
-| Protected route middleware (BE) | 📋 PLANNED | S5 | |
-| Protected route guard (FE) | 📋 PLANNED | S5 | |
-| Login page UI | 📋 PLANNED | S5 | |
-| bcrypt password hashing | 📋 PLANNED | S5 | |
+| Login endpoint (POST /auth/login) | 📋 PLANNED | S6 | |
+| Refresh endpoint (POST /auth/refresh) | 📋 PLANNED | S6 | |
+| Logout endpoint (POST /auth/logout) | 📋 PLANNED | S6 | |
+| JWT Access Token (memory storage) | 📋 PLANNED | S6 | |
+| JWT Refresh Token (httpOnly cookie) | 📋 PLANNED | S6 | |
+| Refresh token rotation | 📋 PLANNED | S6 | |
+| Axios interceptor — silent AT refresh | 📋 PLANNED | S6 | |
+| Concurrent request queue during refresh | 📋 PLANNED | S6 | |
+| RBAC — Admin role | 📋 PLANNED | S6 | |
+| RBAC — Staff role | 📋 PLANNED | S6 | |
+| Protected route middleware (BE) | 📋 PLANNED | S6 | |
+| Protected route guard (FE) | 📋 PLANNED | S6 | |
+| Login page UI | 📋 PLANNED | S6 | |
+| bcrypt password hashing | 📋 PLANNED | S6 | |
 
 ---
 
@@ -80,18 +81,18 @@
 
 | Feature | Status | Session | Notes |
 |---|---|---|---|
-| Products list (paginated table) | 📋 PLANNED | S3 | |
-| Product search + filter by category | 📋 PLANNED | S3 | |
-| Create product | 📋 PLANNED | S3 | |
-| Edit product | 📋 PLANNED | S3 | |
-| Delete product (soft delete) | 📋 PLANNED | S3 | |
-| Stock-in entry | 📋 PLANNED | S3 | |
-| Stock-out entry | 📋 PLANNED | S3 | |
-| Low-stock threshold per product | 📋 PLANNED | S3 | |
-| Low-stock visual alert indicator | 📋 PLANNED | S3 | |
-| Stock movement history table | 📋 PLANNED | S3 | |
-| Inventory dashboard summary | 📋 PLANNED | S3 | |
-| Stock trend chart (Recharts) | 📋 PLANNED | S3 | |
+| Products list (paginated table) | 📋 PLANNED | S4 | |
+| Product search + filter by category | 📋 PLANNED | S4 | |
+| Create product | 📋 PLANNED | S4 | |
+| Edit product | 📋 PLANNED | S4 | |
+| Delete product (soft delete) | 📋 PLANNED | S4 | |
+| Stock-in entry | 📋 PLANNED | S4 | |
+| Stock-out entry | 📋 PLANNED | S4 | |
+| Low-stock threshold per product | 📋 PLANNED | S4 | |
+| Low-stock visual alert indicator | 📋 PLANNED | S4 | |
+| Stock movement history table | 📋 PLANNED | S4 | |
+| Inventory dashboard summary | 📋 PLANNED | S4 | |
+| Stock trend chart (Recharts) | 📋 PLANNED | S4 | |
 
 ---
 
@@ -99,15 +100,15 @@
 
 | Feature | Status | Session | Notes |
 |---|---|---|---|
-| Create order (contact + products) | 📋 PLANNED | S4 | |
-| Auto-calculate order total | 📋 PLANNED | S4 | |
-| Order status — Pending | 📋 PLANNED | S4 | |
-| Order status — Fulfilled | 📋 PLANNED | S4 | |
-| Order status — Cancelled | 📋 PLANNED | S4 | |
-| Status change audit trail | 📋 PLANNED | S4 | |
-| Order history table (filterable) | 📋 PLANNED | S4 | |
-| Order detail view | 📋 PLANNED | S4 | |
-| Invoice summary (printable) | 📋 PLANNED | S4 | |
+| Create order (contact + products) | 📋 PLANNED | S5 | |
+| Auto-calculate order total | 📋 PLANNED | S5 | |
+| Order status — Pending | 📋 PLANNED | S5 | |
+| Order status — Fulfilled | 📋 PLANNED | S5 | |
+| Order status — Cancelled | 📋 PLANNED | S5 | |
+| Status change audit trail | 📋 PLANNED | S5 | |
+| Order history table (filterable) | 📋 PLANNED | S5 | |
+| Order detail view | 📋 PLANNED | S5 | |
+| Invoice summary (printable) | 📋 PLANNED | S5 | |
 
 ---
 
@@ -115,18 +116,18 @@
 
 | Feature | Status | Session | Notes |
 |---|---|---|---|
-| Rate limiting — global (100/15min) | 📋 PLANNED | S6 | |
-| Rate limiting — auth routes (10/15min) | 📋 PLANNED | S6 | |
-| Rate limiting — write ops (30/15min) | 📋 PLANNED | S6 | |
-| Redis-backed rate limit store | 📋 PLANNED | S6 | |
-| 429 UI fallback (toast + button disable) | 📋 PLANNED | S6 | |
+| Rate limiting — global (100/15min) | 📋 PLANNED | S7 | |
+| Rate limiting — auth routes (10/15min) | 📋 PLANNED | S7 | |
+| Rate limiting — write ops (30/15min) | 📋 PLANNED | S7 | |
+| Redis-backed rate limit store | 📋 PLANNED | S7 | |
+| 429 UI fallback (toast + button disable) | 📋 PLANNED | S7 | |
 | React Query stale-while-revalidate | 📋 PLANNED | S2 | Configured at setup |
-| Redis response cache (dashboard agg) | 📋 PLANNED | S6 | |
+| Redis response cache (dashboard agg) | 📋 PLANNED | S7 | |
 | Winston structured logging | ✅ DONE | S1 | Pretty in dev, JSON in prod |
 | Morgan request logging | ✅ DONE | S1 | Streams into Winston logger |
-| Sentry — FE error boundaries | 📋 PLANNED | S6 | |
-| Sentry — BE exception capture | 📋 PLANNED | S6 | |
-| Security headers (Next.js middleware) | 📋 PLANNED | S6 | |
+| Sentry — FE error boundaries | 📋 PLANNED | S7 | |
+| Sentry — BE exception capture | 📋 PLANNED | S7 | |
+| Security headers (Next.js middleware) | 📋 PLANNED | S7 | |
 | CORS configuration | ✅ DONE | S1 | origin = CLIENT_URL, credentials: true |
 
 ---
@@ -135,14 +136,14 @@
 
 | Feature | Status | Session | Notes |
 |---|---|---|---|
-| Admin + Staff user accounts | 📋 PLANNED | S6 | |
-| 25 sample contacts | 📋 PLANNED | S6 | |
-| 15 sample deals (3 stages) | 📋 PLANNED | S6 | |
-| 20 sample products (5 low-stock) | 📋 PLANNED | S6 | |
-| 60 stock movements (30-day history) | 📋 PLANNED | S6 | |
-| 18 sample orders (3 statuses) | 📋 PLANNED | S6 | |
-| Notes + activity log entries | 📋 PLANNED | S6 | |
-| Idempotent seed command | 📋 PLANNED | S6 | |
+| Admin + Staff user accounts | 📋 PLANNED | S7 | |
+| 25 sample contacts | 📋 PLANNED | S7 | |
+| 15 sample deals (3 stages) | 📋 PLANNED | S7 | |
+| 20 sample products (5 low-stock) | 📋 PLANNED | S7 | |
+| 60 stock movements (30-day history) | 📋 PLANNED | S7 | |
+| 18 sample orders (3 statuses) | 📋 PLANNED | S7 | |
+| Notes + activity log entries | 📋 PLANNED | S7 | |
+| Idempotent seed command | 📋 PLANNED | S7 | |
 
 ---
 
@@ -150,14 +151,14 @@
 
 | Feature | Status | Session | Notes |
 |---|---|---|---|
-| Vitest — auth flow unit tests | 📋 PLANNED | S7 | |
-| Vitest — form validation tests | 📋 PLANNED | S7 | |
-| Vitest — Zustand store tests | 📋 PLANNED | S7 | |
-| RTL — Login component test | 📋 PLANNED | S7 | |
-| Playwright — TC-01 Auth flow | 📋 PLANNED | S7 | |
-| Playwright — TC-02 Create contact | 📋 PLANNED | S7 | |
-| Playwright — TC-03 Stock entry | 📋 PLANNED | S7 | |
-| Playwright — TC-04 Create order | 📋 PLANNED | S7 | |
+| Vitest — auth flow unit tests | 📋 PLANNED | S8 | |
+| Vitest — form validation tests | 📋 PLANNED | S8 | |
+| Vitest — Zustand store tests | 📋 PLANNED | S8 | |
+| RTL — Login component test | 📋 PLANNED | S8 | |
+| Playwright — TC-01 Auth flow | 📋 PLANNED | S8 | |
+| Playwright — TC-02 Create contact | 📋 PLANNED | S8 | |
+| Playwright — TC-03 Stock entry | 📋 PLANNED | S8 | |
+| Playwright — TC-04 Create order | 📋 PLANNED | S8 | |
 
 ---
 
@@ -172,4 +173,4 @@
 
 ---
 
-_Last updated: Session 2 — 2026-06-10_
+_Last updated: Session 3 — 2026-06-11_

@@ -139,3 +139,16 @@ Each record answers three questions:
 - Explicit annotations stop TypeScript from trying to infer and serialize these opaque types.
 
 **Tradeoff:** Minor verbosity. No functional impact.
+
+---
+
+### ADR-010 — mysql2 text protocol for reads, binary protocol for writes only
+
+**Decision:** The `query()` helper (all SELECTs) uses `db.query()` — text protocol. The `execute()` helper (INSERT/UPDATE/DELETE) uses `db.execute()` — binary protocol. Never use `db.execute()` for queries with `LIMIT`/`OFFSET`.
+
+**Rationale:**
+- mysql2's `db.execute()` sends JavaScript numbers using the binary protocol as `DOUBLE` (IEEE 754). MySQL rejects `DOUBLE` for `LIMIT`/`OFFSET` parameters, which require `BIGINT UNSIGNED` — causing `Incorrect arguments to mysqld_stmt_execute` on every paginated endpoint (BUG-3-009).
+- `db.query()` uses the text protocol: parameters are escaped and emitted as typed literals. Integer values become integer literals in the SQL text, which MySQL accepts for `LIMIT`/`OFFSET`.
+- Both approaches are safe from SQL injection — `db.query()` with params still escapes all values.
+
+**Tradeoff:** Read queries do not use server-side prepared statements, so MySQL cannot cache their query plans. Accepted: the plan-cache benefit is negligible on a single Railway MySQL instance, and correctness outweighs a micro-optimization.

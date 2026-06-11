@@ -179,3 +179,45 @@ After we finish, update SESSION_LOG.md with a new entry and update BUGLOG.md if 
 - Session 3: Inventory module — products CRUD + stock movements + low-stock alerts + charts
 
 ---
+
+## Session 3 — 2026-06-11 — Infrastructure Corrections & CRM Bugfixes
+
+**Duration:** ~1 hr
+**Engineer:** Renato C. Javier Jr.
+**Session Goal:** Debug and fix infrastructure/config issues surfaced after Session 2 and resolve runtime CRM errors
+
+### ✅ Completed
+- [x] Replaced `next.config.ts` with `next.config.mjs` — Next.js 14 does not support `.ts` config (Next.js 15 feature)
+- [x] Fixed CI pnpm action version (9 → 11)
+- [x] Fixed CI `--if-present` flag position — must be `pnpm -r run --if-present typecheck`, not trailing
+- [x] Fixed CI typecheck — added `pnpm --filter "@sme/web" build` before typecheck to generate `next-env.d.ts`
+- [x] Removed `declaration: true` from `apps/api/tsconfig.json` (app binary, not a library)
+- [x] Added `typecheck` script to `packages/db/package.json` (CI recursive run requires it)
+- [x] Registered missing `DELETE /contacts/:id/notes/:noteId` route
+- [x] Fixed `contactNotes.remove` controller reading `req.params.id` (contact ID) instead of `req.params.noteId`
+- [x] Fixed `Incorrect arguments to mysqld_stmt_execute` — changed `query()` helper from `db.execute()` (binary protocol) to `db.query()` (text protocol); LIMIT/OFFSET integers now sent correctly
+
+### 📁 Files Created
+- `apps/web/next.config.mjs` — replaces next.config.ts (deleted)
+
+### ✏️ Files Modified
+- `.github/workflows/ci.yml` — pnpm version fix, --if-present flag order, added web build step
+- `apps/api/tsconfig.json` — removed `declaration: true`
+- `packages/db/package.json` — added `typecheck` script
+- `apps/api/src/routes/contacts.ts` — added `DELETE /:id/notes/:noteId` route
+- `apps/api/src/controllers/contactNotes.ts` — fixed `req.params.noteId`
+- `apps/api/src/db/query.ts` — `db.execute()` → `db.query()` for read operations
+
+### 🏗️ Architecture Decisions
+- See DECISIONS.md — ADR-010
+
+### 🐛 Bugs Encountered
+> See BUGLOG.md — Bug IDs: BUG-3-001 through BUG-3-009
+
+### 🔗 Dependencies Added
+- None
+
+### ⏭️ Next Session
+- Session 4: Inventory module — products CRUD + stock movements + low-stock alerts + Recharts stock trend chart
+
+---
