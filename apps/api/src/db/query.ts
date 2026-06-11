@@ -7,7 +7,7 @@ export async function query<T extends RowDataPacket>(
   sql: string,
   params: Param[] = []
 ): Promise<T[]> {
-  const [rows] = await db.execute<T[]>(sql, params)
+  const [rows] = await db.query<T[]>(sql, params)
   return rows
 }
 

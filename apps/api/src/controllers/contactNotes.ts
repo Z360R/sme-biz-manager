@@ -31,7 +31,7 @@ export async function create(req: Request, res: Response, next: NextFunction): P
 
 export async function remove(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    await notesService.remove(Number(req.params.id))
+    await notesService.remove(Number(req.params.noteId))
     res.json({ success: true, data: null })
   } catch (err) {
     next(err)

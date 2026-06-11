@@ -15,7 +15,7 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 11
 
       - uses: actions/setup-node@v4
         with:
@@ -28,8 +28,11 @@ jobs:
       - name: Build shared package
         run: pnpm --filter "@sme/shared" build
 
+      - name: Build web (generates next-env.d.ts for typecheck)
+        run: pnpm --filter "@sme/web" build
+
       - name: Type check all packages
-        run: pnpm -r typecheck
+        run: pnpm -r run --if-present typecheck
 
   test:
     name: Tests
@@ -39,7 +42,7 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 11
 
       - uses: actions/setup-node@v4
         with:
@@ -53,4 +56,4 @@ jobs:
         run: pnpm --filter "@sme/shared" build
 
       - name: Run tests
-        run: pnpm -r test --if-present
+        run: pnpm -r run --if-present test

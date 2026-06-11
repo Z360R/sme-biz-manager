@@ -14,3 +14,4 @@ contactsRouter.delete('/:id', contactsCtrl.remove)
 
 contactsRouter.get('/:id/notes', notesCtrl.listByContact)
 contactsRouter.post('/:id/notes', notesCtrl.create)
+contactsRouter.delete('/:id/notes/:noteId', notesCtrl.remove)
