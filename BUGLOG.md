@@ -31,6 +31,28 @@ _None._
 
 ## Resolved Bugs
 
+### BUG-4-001 — `baseUrl` deprecated in TypeScript 7.0 — `apps/web/tsconfig.json`
+
+| Field | Detail |
+|---|---|
+| **Status** | 🟢 RESOLVED |
+| **Session** | Pre-S4 Hotfix |
+| **Severity** | Low |
+| **Module** | Setup |
+| **Reported** | 2026-06-12 |
+| **Resolved** | 2026-06-12 |
+
+**Description:** IDE reported a TypeScript error on `apps/web/tsconfig.json` line 21: `Option 'baseUrl' is deprecated and will stop functioning in TypeScript 7.0.`
+
+**Root Cause:** `baseUrl: "."` was set alongside `paths` as a workaround pre-TS 5.0. Since TypeScript 5.0+, `paths` entries resolve relative to the tsconfig file location by default, making `baseUrl` redundant. TS now emits a deprecation error for it.
+
+**Fix Applied:** Removed `"baseUrl": "."` from `apps/web/tsconfig.json`. All existing `paths` entries (`@/*` → `./*`, `@sme/shared` → `../../packages/shared/src/index.ts`) continue to resolve correctly without it.
+
+**Files Changed:**
+- `apps/web/tsconfig.json`
+
+---
+
 ### BUG-3-001 — `next.config.ts` not supported in Next.js 14
 
 | Field | Detail |

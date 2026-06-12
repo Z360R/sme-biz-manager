@@ -221,3 +221,18 @@ After we finish, update SESSION_LOG.md with a new entry and update BUGLOG.md if 
 - Session 4: Inventory module — products CRUD + stock movements + low-stock alerts + Recharts stock trend chart
 
 ---
+
+## Pre-S4 Hotfix — 2026-06-12 — tsconfig Deprecation Fix
+
+**Engineer:** Renato C. Javier Jr.
+
+### ✅ Completed
+- [x] Removed deprecated `baseUrl: "."` from `apps/web/tsconfig.json` — TS 5.0+ resolves `paths` relative to tsconfig location by default; `baseUrl` triggers a TS error targeting removal in TS 7.0
+
+### ✏️ Files Modified
+- `apps/web/tsconfig.json` — removed `baseUrl`
+
+### 🐛 Bugs Encountered
+> See BUGLOG.md — Bug IDs: BUG-4-001
+
+---
