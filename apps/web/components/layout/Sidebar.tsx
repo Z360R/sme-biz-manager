@@ -30,6 +30,7 @@ const NAV = [
     label: 'Inventory',
     icon: <InventoryIcon />,
     children: [
+      { label: 'Dashboard', href: '/inventory', icon: <DashboardIcon fontSize="small" /> },
       { label: 'Products', href: '/inventory/products', icon: <InventoryIcon fontSize="small" /> },
     ],
   },

@@ -222,6 +222,65 @@ After we finish, update SESSION_LOG.md with a new entry and update BUGLOG.md if 
 
 ---
 
+## Session 4 — 2026-06-12 — Inventory Module
+
+**Duration:** ~1 hr
+**Engineer:** Renato C. Javier Jr.
+**Session Goal:** Full inventory module — products CRUD + stock movements + low-stock alerts + Recharts chart + inventory dashboard
+
+### ✅ Completed
+- [x] Products service — getAll (paginated + search + category filter), getById, create, update, softDelete, getStats, getCategories
+- [x] Stock movements service — getByProduct, create (transactional: FOR UPDATE lock → insert movement → update stock_qty), getRecentMovements (7-day daily grouped chart data)
+- [x] Products controller — list, getOne, create, update, remove, categories, listMovements, createMovement (handles INSUFFICIENT_STOCK 400)
+- [x] Inventory controller — getStats (products stats + chart data combined)
+- [x] Routes: GET/POST/PUT/DELETE /products, GET /products/categories, GET/POST /products/:id/movements, GET /inventory/stats
+- [x] Installed recharts ^2.12.7 in apps/web
+- [x] API client (`lib/api/products.ts`) + React Query hooks (`hooks/useProducts.ts`) for all operations
+- [x] ProductForm — create/edit dialog (SKU, name, category, unit price, stock qty, low-stock threshold)
+- [x] StockMovementForm — stock-in/out dialog with INSUFFICIENT_STOCK error display
+- [x] StockChart — Recharts grouped BarChart (stock_in green / stock_out red, last 7 days)
+- [x] ProductsTable — paginated table with search, category filter, low-stock Chip badge, adjust/edit/delete actions
+- [x] Inventory dashboard page — stat cards (total products, stock value, low-stock count) + StockChart
+- [x] Products list page
+- [x] Sidebar updated — added "Dashboard" link under Inventory section
+
+### 📁 Files Created
+- `apps/api/src/services/products.ts`
+- `apps/api/src/services/stockMovements.ts`
+- `apps/api/src/controllers/products.ts`
+- `apps/api/src/controllers/inventory.ts`
+- `apps/api/src/routes/products.ts`
+- `apps/api/src/routes/inventory.ts`
+- `apps/web/lib/api/products.ts`
+- `apps/web/hooks/useProducts.ts`
+- `apps/web/components/inventory/ProductForm.tsx`
+- `apps/web/components/inventory/StockMovementForm.tsx`
+- `apps/web/components/inventory/StockChart.tsx`
+- `apps/web/components/inventory/ProductsTable.tsx`
+- `apps/web/app/(dashboard)/inventory/page.tsx`
+- `apps/web/app/(dashboard)/inventory/products/page.tsx`
+
+### ✏️ Files Modified
+- `apps/api/src/routes/index.ts` — wired productsRouter + inventoryRouter
+- `apps/web/package.json` — added recharts ^2.12.7
+- `apps/web/components/layout/Sidebar.tsx` — added Inventory > Dashboard nav link
+
+### 🏗️ Architecture Decisions
+- Stock movement create uses a DB transaction with `FOR UPDATE` row lock to prevent race conditions on concurrent stock-out requests
+- `GET /products/categories` registered before `GET /products/:id` in Express router to prevent route shadowing
+- Chart data and product stats combined in single `GET /inventory/stats` response to avoid a second round-trip on the dashboard
+
+### 🐛 Bugs Encountered
+> See BUGLOG.md — Bug IDs: none
+
+### 🔗 Dependencies Added
+**apps/web:** recharts ^2.12.7
+
+### ⏭️ Next Session
+- Session 5: Orders module — create order (contact + line items) + status workflow (Pending → Fulfilled/Cancelled) + order history + invoice summary view + Auth (JWT AT/RT) + RBAC middleware
+
+---
+
 ## Pre-S4 Hotfix — 2026-06-12 — tsconfig Deprecation Fix
 
 **Engineer:** Renato C. Javier Jr.
