@@ -11,9 +11,12 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import DashboardIcon from '@mui/icons-material/Dashboard'
+import LogoutIcon from '@mui/icons-material/Logout'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { useLogout } from '@/hooks/useAuth'
+import { useAuthStore } from '@/store/authStore'
 
 export const SIDEBAR_WIDTH = 240
 
@@ -38,7 +41,7 @@ const NAV = [
     label: 'Orders',
     icon: <ShoppingCartIcon />,
     children: [
-      { label: 'All Orders', href: '/orders', icon: <ShoppingCartIcon fontSize="small" /> },
+      { label: 'Orders', href: '/orders', icon: <ShoppingCartIcon fontSize="small" /> },
     ],
   },
 ]
@@ -46,6 +49,8 @@ const NAV = [
 export function Sidebar() {
   const pathname = usePathname()
   const [open, setOpen] = useState<Record<string, boolean>>({ CRM: true })
+  const logout = useLogout()
+  const user = useAuthStore((s) => s.user)
 
   function toggle(label: string) {
     setOpen((prev) => ({ ...prev, [label]: !prev[label] }))
@@ -95,6 +100,18 @@ export function Sidebar() {
           </Box>
         ))}
       </List>
+      <Box sx={{ mt: 'auto', p: 2 }}>
+        <Divider sx={{ mb: 1 }} />
+        {user && (
+          <Typography variant="caption" color="text.secondary" display="block" sx={{ mb: 1 }} noWrap>
+            {user.email}
+          </Typography>
+        )}
+        <ListItemButton onClick={() => logout.mutate()} sx={{ borderRadius: 1 }}>
+          <ListItemIcon sx={{ minWidth: 36 }}><LogoutIcon fontSize="small" /></ListItemIcon>
+          <ListItemText primary="Sign out" primaryTypographyProps={{ fontSize: 13 }} />
+        </ListItemButton>
+      </Box>
     </Drawer>
   )
 }

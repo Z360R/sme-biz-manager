@@ -9,10 +9,12 @@
     "lint": "echo 'No lint configured'"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^16.4.5",
     "mysql2": "^3.9.7"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
     "@types/node": "^20.12.12",
     "tsx": "^4.10.5",
     "typescript": "^5.4.5"

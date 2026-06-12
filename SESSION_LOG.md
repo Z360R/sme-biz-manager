@@ -281,6 +281,97 @@ After we finish, update SESSION_LOG.md with a new entry and update BUGLOG.md if 
 
 ---
 
+## Session 5 — 2026-06-12 — Auth + Orders Module
+
+**Duration:** ~2 hrs
+**Engineer:** Renato C. Javier Jr.
+**Session Goal:** JWT auth (AT in memory / RT in httpOnly cookie + rotation) + full orders module + seed users
+
+### ✅ Completed
+**Auth Backend**
+- [x] Generated dev JWT secrets, added to `apps/api/.env`
+- [x] Installed: `jsonwebtoken`, `bcryptjs`, `cookie-parser`, `express-rate-limit` + type packages
+- [x] Auth service: login (bcrypt verify), refresh (RT rotation + DB revocation), logout, getMe
+- [x] Auth middleware: `authenticate` (Bearer AT verify), `authorize(...roles)` (RBAC)
+- [x] Rate limiters: general API (100/15min), login (10/15min)
+- [x] Auth controllers + routes: POST /auth/login, POST /auth/refresh, POST /auth/logout, GET /auth/me
+- [x] `apps/api/src/types.d.ts` — Express Request augmented with `user?: { id, email, role }`
+- [x] All data routes now protected with `authenticate` middleware
+
+**Orders Backend**
+- [x] Orders service: getAll (paginated + status filter), getById (with JOIN contact + items + history), create (transaction — snapshot unit_price, calculate total, insert order + items + initial status history), updateStatus (pending → fulfilled/cancelled only), getStats
+- [x] Orders controller + route: GET/POST /orders, GET/POST /orders/:id, PUT /orders/:id/status, GET /orders/stats
+
+**DB Seed**
+- [x] Implemented user seed in `packages/db/scripts/seed.ts` (admin@demo.com + staff@demo.com, bcrypt hashed, idempotent ON DUPLICATE KEY UPDATE)
+- [x] Added `bcryptjs` to `@sme/db`
+
+**Frontend Auth**
+- [x] `lib/api/auth.ts` — login, refresh, logout, me
+- [x] `hooks/useAuth.ts` — useLogin, useLogout (clears Zustand + React Query cache)
+- [x] `lib/axios.ts` — request interceptor (attach AT), response interceptor (401 → silent refresh → replay; concurrent 401s queued with subscriber pattern)
+- [x] `AuthGuard` — calls refresh on mount; shows spinner while checking; redirects to /login on failure
+- [x] Dashboard layout wraps with AuthGuard
+- [x] Login page — react-hook-form, Zod validation, error display, password visibility toggle
+- [x] Sidebar — added logout button + user email display at footer
+
+**Frontend Orders**
+- [x] `lib/api/orders.ts` + `hooks/useOrders.ts` — full CRUD + stats + cache invalidation
+- [x] `OrdersTable` — paginated list with status filter + Chip badges
+- [x] `OrderForm` — useFieldArray line items, Contact + Product selectors, live total calculation
+- [x] `OrderDetail` — invoice summary view, Fulfill/Cancel actions, status history timeline, Print button
+- [x] `/orders` page — stat cards (total, pending, fulfilled, revenue) + table
+- [x] `/orders/[id]` — order detail / invoice page
+
+### 📁 Files Created
+- `apps/api/src/types.d.ts`
+- `apps/api/src/services/auth.ts`
+- `apps/api/src/services/orders.ts`
+- `apps/api/src/middleware/auth.ts`
+- `apps/api/src/middleware/rateLimiter.ts`
+- `apps/api/src/controllers/auth.ts`
+- `apps/api/src/controllers/orders.ts`
+- `apps/api/src/routes/auth.ts`
+- `apps/api/src/routes/orders.ts`
+- `apps/web/lib/api/auth.ts`
+- `apps/web/lib/api/orders.ts`
+- `apps/web/hooks/useAuth.ts`
+- `apps/web/hooks/useOrders.ts`
+- `apps/web/components/providers/AuthGuard.tsx`
+- `apps/web/components/orders/OrdersTable.tsx`
+- `apps/web/components/orders/OrderForm.tsx`
+- `apps/web/components/orders/OrderDetail.tsx`
+- `apps/web/app/(dashboard)/orders/page.tsx`
+- `apps/web/app/(dashboard)/orders/[id]/page.tsx`
+
+### ✏️ Files Modified
+- `apps/api/src/app.ts` — added cookie-parser + apiLimiter
+- `apps/api/src/routes/index.ts` — wired auth + orders routes; added authenticate to all data routes
+- `apps/api/.env` — generated JWT secrets
+- `packages/db/scripts/seed.ts` — implemented user seed
+- `packages/db/package.json` — added bcryptjs
+- `apps/web/lib/axios.ts` — request + response interceptors
+- `apps/web/app/(auth)/login/page.tsx` — replaced placeholder with full login form
+- `apps/web/app/(dashboard)/layout.tsx` — wrapped with AuthGuard
+- `apps/web/components/layout/Sidebar.tsx` — logout button + user email
+
+### 🏗️ Architecture Decisions
+- See DECISIONS.md — ADR-011 (to be added)
+- Concurrent 401 handling: subscriber queue pattern — multiple parallel requests that 401 are held until refresh completes, then replayed; prevents multiple simultaneous refresh calls
+- RT path is `/` (not restricted to `/api/v1/auth`) so the browser sends it for both `/auth/refresh` and `/auth/logout` — changing to a restricted path would require explicit cookie forwarding from the web app which adds complexity for no security benefit in this architecture
+
+### 🐛 Bugs Encountered
+> See BUGLOG.md — Bug IDs: BUG-5-001, BUG-5-002
+
+### 🔗 Dependencies Added
+**apps/api:** jsonwebtoken, bcryptjs, cookie-parser, express-rate-limit + type packages
+**packages/db:** bcryptjs
+
+### ⏭️ Next Session
+- Session 6: Full seed script (25 contacts + 15 deals + 20 products + 60 stock movements + 18 orders + notes + activities) + Railway deploy + Vercel deploy + end-to-end smoke test
+
+---
+
 ## Pre-S4 Hotfix — 2026-06-12 — tsconfig Deprecation Fix
 
 **Engineer:** Renato C. Javier Jr.

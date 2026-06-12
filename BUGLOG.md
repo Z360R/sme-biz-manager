@@ -31,6 +31,46 @@ _None._
 
 ## Resolved Bugs
 
+### BUG-5-002 — `expiresIn` expects branded `StringValue`, not plain `string`
+
+| Field | Detail |
+|---|---|
+| **Status** | 🟢 RESOLVED |
+| **Session** | Session 5 |
+| **Severity** | Medium |
+| **Module** | Auth |
+| **Reported** | 2026-06-12 |
+| **Resolved** | 2026-06-12 |
+
+**Description:** `jwt.sign(..., { expiresIn: process.env.JWT_ACCESS_EXPIRES })` failed tsc: `Type 'string' is not assignable to type 'number | StringValue | undefined'`. `StringValue` is a branded type from the `ms` package used by jsonwebtoken — a plain `string` is not assignable to it even though it's valid at runtime.
+
+**Fix Applied:** Cast via `as unknown as jwt.SignOptions['expiresIn']` to pass type check without losing runtime behavior.
+
+**Files Changed:**
+- `apps/api/src/services/auth.ts`
+
+---
+
+### BUG-5-001 — `JwtPayload` interface name collides with jsonwebtoken's exported type
+
+| Field | Detail |
+|---|---|
+| **Status** | 🟢 RESOLVED |
+| **Session** | Session 5 |
+| **Severity** | Medium |
+| **Module** | Auth |
+| **Reported** | 2026-06-12 |
+| **Resolved** | 2026-06-12 |
+
+**Description:** Local `interface JwtPayload` in `services/auth.ts` shadowed `jsonwebtoken`'s exported `JwtPayload`. TypeScript's `jwt.verify()` return type (`string | JwtPayload`) clashed with the local type, causing a TS2352 conversion error.
+
+**Fix Applied:** Renamed local interface to `AuthPayload`.
+
+**Files Changed:**
+- `apps/api/src/services/auth.ts`
+
+---
+
 ### BUG-4-001 — `baseUrl` deprecated in TypeScript 7.0 — `apps/web/tsconfig.json`
 
 | Field | Detail |
