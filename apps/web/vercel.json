@@ -1,0 +1,5 @@
+{
+  "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm --filter @sme/shared build && next build",
+  "framework": "nextjs"
+}

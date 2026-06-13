@@ -372,6 +372,48 @@ After we finish, update SESSION_LOG.md with a new entry and update BUGLOG.md if 
 
 ---
 
+## Session 6 — 2026-06-13 — Full Seed + Deployment Config
+
+**Duration:** ~1 hr
+**Engineer:** Renato C. Javier Jr.
+**Session Goal:** Full seed script (25 contacts, 15 deals, 20 products, 60 stock movements, 18 orders) + Railway API deploy config + Vercel frontend deploy config
+
+### ✅ Completed
+- [x] Full seed script — 25 contacts (10 PH + 15 US/EU), 17 contact notes, 15 deals (5 lead / 6 active / 4 closed) with 29 deal activities, 20 products across 5 categories (3 intentionally low-stock), 60 stock movements (3 per product), 18 orders (6 pending / 8 fulfilled / 4 cancelled) with line items and status history
+- [x] Seed is idempotent — clears all demo data with FK checks off, then re-inserts; users are upserted separately
+- [x] `railway.toml` — Nixpacks builder, build command builds shared + API, start command, health check on `/api/v1/health`, restart policy
+- [x] `apps/web/vercel.json` — install from monorepo root, builds shared before Next.js build, framework set to nextjs
+- [x] Fixed BUG-5-003 — Axios response interceptor cascading 401s on refresh endpoint (see BUGLOG.md)
+- [ ] Railway backend deployed — **run `railway up` after setting env vars in Railway dashboard**
+- [ ] Vercel frontend deployed — **run `vercel --cwd apps/web` or connect GitHub repo in Vercel dashboard; set root directory to `apps/web`**
+- [ ] Migration + seed run on Railway DB — **run `pnpm migrate && pnpm seed` with Railway DB credentials**
+- [ ] End-to-end smoke test — **pending deploy**
+
+### 📁 Files Created
+- `railway.toml`
+- `apps/web/vercel.json`
+
+### ✏️ Files Modified
+- `packages/db/scripts/seed.ts` — full seed replacing users-only stub
+- `apps/web/lib/axios.ts` — BUG-5-003 fix (refresh URL guard in response interceptor)
+- `SESSION_LOG.md` — Session 1 GitHub repo item marked done
+
+### 🏗️ Architecture Decisions
+- Seed clears demo tables with `SET FOREIGN_KEY_CHECKS = 0` then re-inserts, rather than deleting in FK-safe order — simpler and safe for a controlled seed script
+- Railway config lives at monorepo root — build command must build `@sme/shared` first since API depends on it as a workspace package
+- Vercel `installCommand` runs from monorepo root (`cd ../..`) so pnpm resolves the full workspace; `buildCommand` uses `pnpm --filter` which walks up to workspace root automatically
+
+### 🐛 Bugs Encountered
+> See BUGLOG.md — Bug IDs: BUG-5-003
+
+### 🔗 Dependencies Added
+- None
+
+### ⏭️ Next Session
+- Session 7: Run migration + seed on Railway, deploy API to Railway, deploy frontend to Vercel, end-to-end smoke test (login → contacts → deals → inventory → orders → logout)
+
+---
+
 ## Pre-S4 Hotfix — 2026-06-12 — tsconfig Deprecation Fix
 
 **Engineer:** Renato C. Javier Jr.
