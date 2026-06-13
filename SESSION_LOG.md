@@ -73,7 +73,7 @@ After we finish, update SESSION_LOG.md with a new entry and update BUGLOG.md if 
 - [ ] MySQL schema run on Railway — **needs DB credentials from engineer**
 - [ ] Railway project created + backend deployed — **needs Railway CLI**
 - [ ] Vercel project created + frontend deployed — **needs Vercel CLI**
-- [ ] GitHub repo created — **needs `gh auth login`**
+- [x] GitHub repo created — remote set to https://github.com/Z360R/sme-biz-manager.git
 
 ### 📁 Files Created
 - `package.json` (root — pnpm workspace scripts)
