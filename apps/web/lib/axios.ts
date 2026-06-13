@@ -33,8 +33,12 @@ apiClient.interceptors.response.use(
   async (error) => {
     const original = error.config
 
-    // Skip if this is already a retry or a refresh request itself
-    if (error.response?.status !== 401 || original._retry) {
+    // Skip if not a 401, already retried, or the failing request is the refresh endpoint itself
+    if (
+      error.response?.status !== 401 ||
+      original._retry ||
+      original.url?.includes('/auth/refresh')
+    ) {
       return Promise.reject(error)
     }
 

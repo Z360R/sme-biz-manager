@@ -31,6 +31,28 @@ _None._
 
 ## Resolved Bugs
 
+### BUG-5-003 — Axios response interceptor intercepts its own refresh call, cascading 401s
+
+| Field | Detail |
+|---|---|
+| **Status** | 🟢 RESOLVED |
+| **Session** | Post-Session 5 Review |
+| **Severity** | High |
+| **Module** | Auth |
+| **Reported** | 2026-06-13 |
+| **Resolved** | 2026-06-13 |
+
+**Description:** When `POST /auth/refresh` itself returned a 401 (no RT cookie, expired, or revoked), the Axios response interceptor would fire on that response too. Since the refresh request had no `_retry` flag and no URL guard, the interceptor treated it as a normal 401 and attempted another refresh — which also 401'd. This cascaded into a subscriber queue that was never resolved, producing multiple spurious 401s in the network tab for what should have been a single clean failure.
+
+**Root Cause:** The `original._retry` guard in the interceptor only prevents re-entering the refresh logic for the *original* failed request. It does not prevent the interceptor from treating the refresh request itself as something that needs re-refreshing.
+
+**Fix Applied:** Added a URL check alongside the existing guards — if the failing request's URL contains `/auth/refresh`, the interceptor skips retry logic and propagates the error directly to the `catch` in `AuthGuard`, which then clears auth state and redirects to `/login`.
+
+**Files Changed:**
+- `apps/web/lib/axios.ts`
+
+---
+
 ### BUG-5-002 — `expiresIn` expects branded `StringValue`, not plain `string`
 
 | Field | Detail |
